@@ -25,6 +25,9 @@ public class Admin {
     @Column(name = "full_name")
     private String fullName;
 
+    @Column(name = "role")
+    private String role;
+
     public Admin() {
     }
 
@@ -62,6 +65,14 @@ public class Admin {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override

@@ -24,9 +24,11 @@ public class SecurityConfig {
         http
                 .userDetailsService(adminDetailsService)
                 .authorizeRequests()
+                .antMatchers("/auth", "/people", "/books")
+                .hasRole("ADMIN")
                 .antMatchers("/auth/login", "/auth/registration", "/error").permitAll()
                 .anyRequest()
-                .authenticated()
+                .hasAnyRole("USER", "ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/auth/login")
