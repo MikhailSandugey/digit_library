@@ -4,7 +4,7 @@ Digital Library is a Java Web Application for dealing accounting for books in li
 
 ## Description
 
-This application keeps track of book lending to people. Also it have authentication for librarians so they can log in with their personal credentials and assign books to people. 
+This application keeps track of book lending to people. Also it has authentication for librarians so they can log in with their personal credentials and assign books to people. 
 
 Stack of techonologies:
 - Java 17
@@ -24,7 +24,7 @@ $ git clone https://github.com/MikhailSandugey/digit_library.git
 
 Set up `application.properties` and `liquibase.properties` files in `src/main/resources` directory for database.
 
-Then we can run this application with following commands :
+Then the application can be run with following commands :
 
 ```bash
 # Go into the repository using command line
