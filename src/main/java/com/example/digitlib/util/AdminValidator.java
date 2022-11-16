@@ -1,7 +1,7 @@
 package com.example.digitlib.util;
 
-import com.example.digitlib.models.Admin;
-import com.example.digitlib.services.AdminService;
+import com.example.digitlib.model.Admin;
+import com.example.digitlib.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

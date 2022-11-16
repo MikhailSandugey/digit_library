@@ -1,8 +1,8 @@
-package com.example.digitlib.services;
+package com.example.digitlib.service;
 
-import com.example.digitlib.models.Book;
-import com.example.digitlib.models.Person;
-import com.example.digitlib.repositories.BooksRepository;
+import com.example.digitlib.model.Book;
+import com.example.digitlib.model.Person;
+import com.example.digitlib.repository.BooksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;

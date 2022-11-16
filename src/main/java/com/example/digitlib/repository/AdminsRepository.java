@@ -1,6 +1,6 @@
-package com.example.digitlib.repositories;
+package com.example.digitlib.repository;
 
-import com.example.digitlib.models.Admin;
+import com.example.digitlib.model.Admin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

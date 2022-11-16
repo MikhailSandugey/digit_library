@@ -1,6 +1,6 @@
 package com.example.digitlib.config;
 
-import com.example.digitlib.services.AdminDetailsService;
+import com.example.digitlib.service.AdminDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

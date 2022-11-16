@@ -1,7 +1,7 @@
 package com.example.digitlib.util;
 
-import com.example.digitlib.models.Person;
-import com.example.digitlib.services.PeopleService;
+import com.example.digitlib.model.Person;
+import com.example.digitlib.service.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

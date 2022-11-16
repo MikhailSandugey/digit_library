@@ -1,4 +1,4 @@
-package com.example.digitlib.models;
+package com.example.digitlib.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;

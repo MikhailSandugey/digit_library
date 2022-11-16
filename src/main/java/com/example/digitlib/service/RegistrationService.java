@@ -1,7 +1,7 @@
-package com.example.digitlib.services;
+package com.example.digitlib.service;
 
-import com.example.digitlib.models.Admin;
-import com.example.digitlib.repositories.AdminsRepository;
+import com.example.digitlib.model.Admin;
+import com.example.digitlib.repository.AdminsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class RegistrationService {
     @Transactional
     public void registerAdmin(Admin admin) {
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));
-        admin.setRole("ROLE_USER");
+        admin.setRole("ROLE_ADMIN");
         adminsRepository.save(admin);
     }
 }

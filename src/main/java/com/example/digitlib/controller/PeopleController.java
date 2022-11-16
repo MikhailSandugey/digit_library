@@ -1,7 +1,7 @@
-package com.example.digitlib.controllers;
+package com.example.digitlib.controller;
 
-import com.example.digitlib.models.Person;
-import com.example.digitlib.services.PeopleService;
+import com.example.digitlib.model.Person;
+import com.example.digitlib.service.PeopleService;
 import com.example.digitlib.util.PersonValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

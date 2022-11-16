@@ -1,9 +1,9 @@
-package com.example.digitlib.controllers;
+package com.example.digitlib.controller;
 
-import com.example.digitlib.models.Book;
-import com.example.digitlib.models.Person;
-import com.example.digitlib.services.BooksService;
-import com.example.digitlib.services.PeopleService;
+import com.example.digitlib.model.Book;
+import com.example.digitlib.model.Person;
+import com.example.digitlib.service.BooksService;
+import com.example.digitlib.service.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

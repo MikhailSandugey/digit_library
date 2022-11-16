@@ -1,6 +1,6 @@
 package com.example.digitlib.security;
 
-import com.example.digitlib.models.Admin;
+import com.example.digitlib.model.Admin;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,7 +1,7 @@
-package com.example.digitlib.services;
+package com.example.digitlib.service;
 
-import com.example.digitlib.models.Admin;
-import com.example.digitlib.repositories.AdminsRepository;
+import com.example.digitlib.model.Admin;
+import com.example.digitlib.repository.AdminsRepository;
 import com.example.digitlib.security.AdminDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
