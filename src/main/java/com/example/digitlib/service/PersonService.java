@@ -1,6 +1,7 @@
 package com.example.digitlib.service;
 
-import com.example.digitlib.model.Book;
+import com.example.digitlib.dto.BookDto;
+import com.example.digitlib.dto.PersonDto;
 import com.example.digitlib.model.Person;
 
 import java.util.List;
@@ -9,13 +10,13 @@ import java.util.Optional;
 /**
  * Interface for PersonService entity
  */
-public interface PersonService extends CrudService<Person> {
+public interface PersonService extends CrudService<PersonDto> {
 
     /**
      * Finds all persons at a service layer
      * @return List of persons
      */
-    List<Person> findAll();
+    List<PersonDto> findAll();
 
     /**
      * Gets Person by name at a service layer
@@ -29,6 +30,6 @@ public interface PersonService extends CrudService<Person> {
      * @param id id of Person
      * @return List of books
      */
-    List<Book> getBooksByPersonId(int id);
+    List<BookDto> getBooksByPersonId(int id);
 
 }

@@ -17,6 +17,7 @@
 		<java.version>17</java.version>
 		<liquibase-core.version>4.17.2</liquibase-core.version>
 		<liquibase-maven-plugin.version>4.17.2</liquibase-maven-plugin.version>
+		<modelmapper.version>3.1.0</modelmapper.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -69,6 +70,12 @@
 			<artifactId>liquibase-maven-plugin</artifactId>
 			<version>${liquibase-maven-plugin.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>${modelmapper.version}</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

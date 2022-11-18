@@ -1,21 +1,21 @@
 package com.example.digitlib.service;
 
-import com.example.digitlib.model.Book;
-import com.example.digitlib.model.Person;
+import com.example.digitlib.dto.BookDto;
+import com.example.digitlib.dto.PersonDto;
 
 import java.util.List;
 
 /**
  * Interface for BookService entity
  */
-public interface BookService extends CrudService<Book> {
+public interface BookService extends CrudService<BookDto> {
 
     /**
      * Finds all books with or without sorting at a service layer
      * @param sortByYear true or false, with sort or without
      * @return List of books
      */
-    List<Book> findAll(boolean sortByYear);
+    List<BookDto> findAll(boolean sortByYear);
 
     /**
      * Find books with pagination at a service layer
@@ -24,21 +24,21 @@ public interface BookService extends CrudService<Book> {
      * @param sortByYear true or false, with sort or without
      * @return List of books
      */
-    List<Book> findWithPagination(Integer page, Integer bookPerPage, boolean sortByYear);
+    List<BookDto> findWithPagination(Integer page, Integer bookPerPage, boolean sortByYear);
 
     /**
      * Find books by part of the name or full name at a service layer
      * @param name name or part of the name
      * @return List of books
      */
-    List<Book> searchByName(String name);
+    List<BookDto> searchByName(String name);
 
     /**
      * Assigns Book to Person by id and Person at a service layer
      * @param id id of Book
-     * @param person exact Person
+     * @param personDto exact Person
      */
-    void assignBook(int id, Person person);
+    void assignBook(int id, PersonDto personDto);
 
     /**
      * Releases Book from Person by id at a service layer
@@ -51,5 +51,5 @@ public interface BookService extends CrudService<Book> {
      * @param id id of Book
      * @return Person
      */
-    Person getBookOwner(int id);
+    PersonDto getBookOwner(int id);
 }

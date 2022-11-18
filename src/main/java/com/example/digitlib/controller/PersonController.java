@@ -1,5 +1,6 @@
 package com.example.digitlib.controller;
 
+import com.example.digitlib.dto.PersonDto;
 import com.example.digitlib.model.Person;
 import com.example.digitlib.service.impl.PersonServiceImpl;
 import com.example.digitlib.util.PersonValidator;
@@ -13,13 +14,13 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/people")
-public class PeopleController {
+public class PersonController {
 
     private final PersonServiceImpl personServiceImpl;
     private final PersonValidator personValidator;
 
     @Autowired
-    public PeopleController(PersonServiceImpl personServiceImpl, PersonValidator personValidator) {
+    public PersonController(PersonServiceImpl personServiceImpl, PersonValidator personValidator) {
         this.personServiceImpl = personServiceImpl;
         this.personValidator = personValidator;
     }
@@ -43,14 +44,14 @@ public class PeopleController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("person") @Valid Person person,
+    public String create(@ModelAttribute("person") @Valid PersonDto personDto,
                          BindingResult bindingResult) {
-        personValidator.validate(person, bindingResult);
+        personValidator.validate(personDto, bindingResult);
         if (bindingResult.hasErrors()) {
             return "people/new";
         }
 
-        personServiceImpl.save(person);
+        personServiceImpl.save(personDto);
         return "redirect:/people";
     }
 
@@ -61,13 +62,13 @@ public class PeopleController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
+    public String update(@ModelAttribute("person") @Valid PersonDto personDto, BindingResult bindingResult,
                          @PathVariable("id") int id) {
-        personValidator.validate(person, bindingResult);
+        personValidator.validate(personDto, bindingResult);
         if (bindingResult.hasErrors())
             return "people/edit";
 
-        personServiceImpl.update(person, id);
+        personServiceImpl.update(personDto, id);
         return "redirect:/people";
     }
 

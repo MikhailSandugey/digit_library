@@ -1,7 +1,7 @@
 package com.example.digitlib.controller;
 
-import com.example.digitlib.model.Book;
-import com.example.digitlib.model.Person;
+import com.example.digitlib.dto.BookDto;
+import com.example.digitlib.dto.PersonDto;
 import com.example.digitlib.service.impl.BookServiceImpl;
 import com.example.digitlib.service.impl.PersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person) {
+    public String show(@PathVariable("id") int id, Model model, @ModelAttribute("person") PersonDto personDto) {
         model.addAttribute("book", bookServiceImpl.findOne(id));
         model.addAttribute("owner", bookServiceImpl.getBookOwner(id));
         model.addAttribute("people", personServiceImpl.findAll());
@@ -47,16 +47,16 @@ public class BookController {
     }
 
     @GetMapping("/new")
-    public String newBook(@ModelAttribute("book") Book book) {
+    public String newBook(@ModelAttribute("book") BookDto bookDto) {
         return "books/new";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
+    public String create(@ModelAttribute("book") @Valid BookDto bookDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "books/new";
         }
-        bookServiceImpl.save(book);
+        bookServiceImpl.save(bookDto);
         return "redirect:/books";
     }
 
@@ -67,12 +67,12 @@ public class BookController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult,
+    public String update(@ModelAttribute("book") @Valid BookDto bookDto, BindingResult bindingResult,
                          @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
             return "books/edit";
         }
-        bookServiceImpl.update(book, id);
+        bookServiceImpl.update(bookDto, id);
         return "redirect:/books";
     }
 
@@ -83,8 +83,8 @@ public class BookController {
     }
 
     @PostMapping("/{id}/assign")
-    public String assign(@ModelAttribute("person") Person person, @PathVariable("id") int id) {
-        bookServiceImpl.assignBook(id, person);
+    public String assign(@ModelAttribute("person") PersonDto personDto, @PathVariable("id") int id) {
+        bookServiceImpl.assignBook(id, personDto);
         return "redirect:/books/" + id;
     }
 

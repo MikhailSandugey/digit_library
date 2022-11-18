@@ -1,60 +1,69 @@
 package com.example.digitlib.service.impl;
 
-import com.example.digitlib.model.Book;
+import com.example.digitlib.converter.impl.BookConverter;
+import com.example.digitlib.converter.impl.PersonConverter;
+import com.example.digitlib.dto.BookDto;
+import com.example.digitlib.dto.PersonDto;
 import com.example.digitlib.model.Person;
-import com.example.digitlib.repository.PeopleRepository;
+import com.example.digitlib.repository.PersonRepository;
 import com.example.digitlib.service.PersonService;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
 public class PersonServiceImpl implements PersonService {
 
-    private final PeopleRepository peopleRepository;
+    private final PersonRepository personRepository;
+    private final PersonConverter personConverter;
+    private final BookConverter bookConverter;
 
     @Autowired
-    public PersonServiceImpl(PeopleRepository peopleRepository) {
-        this.peopleRepository = peopleRepository;
+    public PersonServiceImpl(PersonRepository personRepository,
+                             PersonConverter personConverter,
+                             BookConverter bookConverter) {
+        this.personRepository = personRepository;
+        this.personConverter = personConverter;
+        this.bookConverter = bookConverter;
     }
 
-    public List<Person> findAll() {
-        return peopleRepository.findAll();
+    public List<PersonDto> findAll() {
+        return personConverter.convertObjectToDtoList(personRepository.findAll());
     }
 
-    public Person findOne(int id) {
-        return peopleRepository.findById(id).orElse(null);
+    public PersonDto findOne(int id) {
+        return personConverter.convertObjectToDto(personRepository.findById(id).orElse(null));
     }
 
     @Transactional
-    public void save(Person person) {
-        peopleRepository.save(person);
+    public void save(PersonDto personDto) {
+        personRepository.save(personConverter.convertDtoToObject(personDto));
     }
 
     @Transactional
-    public void update(Person person, int id) {
+    public void update(PersonDto personDto, int id) {
+        Person personToUpdate = personRepository.findById(id).get();
+        Person person = personConverter.convertDtoToObject(personDto);
         person.setId(id);
-        peopleRepository.save(person);
+        person.setBooks(personToUpdate.getBooks());
+        personRepository.save(person);
     }
 
     @Transactional
     public void delete(int id) {
-        peopleRepository.deleteById(id);
+        personRepository.deleteById(id);
     }
 
     public Optional<Person> getByName(String name) {
-        return peopleRepository.findByName(name);
+        return personRepository.findByName(name);
     }
 
-    public List<Book> getBooksByPersonId(int id) {
-        Optional<Person> person = peopleRepository.findById(id);
+    public List<BookDto> getBooksByPersonId(int id) {
+        Optional<Person> person = personRepository.findById(id);
         if (person.isPresent()) {
             Hibernate.initialize(person.get().getBooks());
             person.get().getBooks().forEach(book -> {
@@ -64,7 +73,7 @@ public class PersonServiceImpl implements PersonService {
                     book.setExpired(true);
                 }
             });
-            return person.get().getBooks();
+            return bookConverter.convertObjectToDtoList(person.get().getBooks());
         } else {
             return Collections.emptyList();
         }

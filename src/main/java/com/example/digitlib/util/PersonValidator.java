@@ -1,5 +1,6 @@
 package com.example.digitlib.util;
 
+import com.example.digitlib.dto.PersonDto;
 import com.example.digitlib.model.Person;
 import com.example.digitlib.service.impl.PersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,13 @@ public class PersonValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return Person.class.equals(clazz);
+        return PersonDto.class.equals(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        Person person = (Person) target;
-        if (personServiceImpl.getByName(person.getName()).isPresent()) {
+        PersonDto personDto = (PersonDto) target;
+        if (personServiceImpl.getByName(personDto.getName()).isPresent()) {
             errors.rejectValue("name", "", "Human with this name is already exist!");
         }
     }
