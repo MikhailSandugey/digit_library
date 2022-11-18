@@ -1,4 +1,4 @@
-package com.example.digitlib.service;
+package com.example.digitlib.service.impl;
 
 import com.example.digitlib.model.Admin;
 import com.example.digitlib.repository.AdminsRepository;
@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class AdminDetailsService implements UserDetailsService {
+public class AdminDetailsServiceImpl implements UserDetailsService {
 
     private final AdminsRepository adminsRepository;
 
     @Autowired
-    public AdminDetailsService(AdminsRepository adminsRepository) {
+    public AdminDetailsServiceImpl(AdminsRepository adminsRepository) {
         this.adminsRepository = adminsRepository;
     }
 

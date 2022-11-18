@@ -2,8 +2,8 @@ package com.example.digitlib.controller;
 
 import com.example.digitlib.model.Book;
 import com.example.digitlib.model.Person;
-import com.example.digitlib.service.BooksService;
-import com.example.digitlib.service.PeopleService;
+import com.example.digitlib.service.impl.BookServiceImpl;
+import com.example.digitlib.service.impl.PersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +16,13 @@ import javax.validation.Valid;
 @RequestMapping("/books")
 public class BookController {
 
-    private final BooksService booksService;
-    private final PeopleService peopleService;
+    private final BookServiceImpl bookServiceImpl;
+    private final PersonServiceImpl personServiceImpl;
 
     @Autowired
-    public BookController(BooksService booksService, PeopleService peopleService) {
-        this.booksService = booksService;
-        this.peopleService = peopleService;
+    public BookController(BookServiceImpl bookServiceImpl, PersonServiceImpl personServiceImpl) {
+        this.bookServiceImpl = bookServiceImpl;
+        this.personServiceImpl = personServiceImpl;
     }
 
     @GetMapping()
@@ -31,18 +31,18 @@ public class BookController {
                         @RequestParam(value = "sort_by_year", required = false) boolean sortByYear,
                         Model model) {
         if (page == null || booksPerPage == null) {
-            model.addAttribute("books", booksService.findAll(sortByYear));
+            model.addAttribute("books", bookServiceImpl.findAll(sortByYear));
         } else {
-            model.addAttribute("books", booksService.findWithPagination(page, booksPerPage, sortByYear));
+            model.addAttribute("books", bookServiceImpl.findWithPagination(page, booksPerPage, sortByYear));
         }
         return "books/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person) {
-        model.addAttribute("book", booksService.findOne(id));
-        model.addAttribute("owner", booksService.getBookOwner(id));
-        model.addAttribute("people", peopleService.findAll());
+        model.addAttribute("book", bookServiceImpl.findOne(id));
+        model.addAttribute("owner", bookServiceImpl.getBookOwner(id));
+        model.addAttribute("people", personServiceImpl.findAll());
         return "books/show";
     }
 
@@ -56,13 +56,13 @@ public class BookController {
         if (bindingResult.hasErrors()) {
             return "books/new";
         }
-        booksService.save(book);
+        bookServiceImpl.save(book);
         return "redirect:/books";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("book", booksService.findOne(id));
+        model.addAttribute("book", bookServiceImpl.findOne(id));
         return "books/edit";
     }
 
@@ -72,25 +72,25 @@ public class BookController {
         if (bindingResult.hasErrors()) {
             return "books/edit";
         }
-        booksService.update(id, book);
+        bookServiceImpl.update(book, id);
         return "redirect:/books";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        booksService.delete(id);
+        bookServiceImpl.delete(id);
         return "redirect:/books";
     }
 
     @PostMapping("/{id}/assign")
     public String assign(@ModelAttribute("person") Person person, @PathVariable("id") int id) {
-        booksService.assignBook(id, person);
+        bookServiceImpl.assignBook(id, person);
         return "redirect:/books/" + id;
     }
 
     @PostMapping("/{id}/release")
     public String release(@PathVariable("id") int id) {
-        booksService.releaseBook(id);
+        bookServiceImpl.releaseBook(id);
         return "redirect:/books/" + id;
     }
 
@@ -101,7 +101,7 @@ public class BookController {
 
     @PostMapping("/search")
     public String search(@RequestParam("name") String name, Model model) {
-        model.addAttribute("books", booksService.searchByName(name));
+        model.addAttribute("books", bookServiceImpl.searchByName(name));
         return "books/search";
     }
 

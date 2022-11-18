@@ -1,7 +1,7 @@
 package com.example.digitlib.controller;
 
 import com.example.digitlib.model.Admin;
-import com.example.digitlib.service.RegistrationService;
+import com.example.digitlib.service.impl.RegistrationServiceImpl;
 import com.example.digitlib.util.AdminValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,12 +17,12 @@ import javax.validation.Valid;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final RegistrationService registrationService;
+    private final RegistrationServiceImpl registrationServiceImpl;
     private final AdminValidator adminValidator;
 
     @Autowired
-    public AuthController(RegistrationService registrationService, AdminValidator adminValidator) {
-        this.registrationService = registrationService;
+    public AuthController(RegistrationServiceImpl registrationServiceImpl, AdminValidator adminValidator) {
+        this.registrationServiceImpl = registrationServiceImpl;
         this.adminValidator = adminValidator;
     }
 
@@ -43,7 +43,7 @@ public class AuthController {
         if (bindingResult.hasErrors()) {
             return "auth/registration";
         }
-        registrationService.registerAdmin(admin);
+        registrationServiceImpl.registerAdmin(admin);
         return "redirect:/auth/login";
     }
 }

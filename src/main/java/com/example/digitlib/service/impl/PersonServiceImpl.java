@@ -1,8 +1,9 @@
-package com.example.digitlib.service;
+package com.example.digitlib.service.impl;
 
 import com.example.digitlib.model.Book;
 import com.example.digitlib.model.Person;
 import com.example.digitlib.repository.PeopleRepository;
+import com.example.digitlib.service.PersonService;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,12 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class PeopleService {
+public class PersonServiceImpl implements PersonService {
 
     private final PeopleRepository peopleRepository;
 
     @Autowired
-    public PeopleService(PeopleRepository peopleRepository) {
+    public PersonServiceImpl(PeopleRepository peopleRepository) {
         this.peopleRepository = peopleRepository;
     }
 
@@ -38,7 +39,7 @@ public class PeopleService {
     }
 
     @Transactional
-    public void update(int id, Person person) {
+    public void update(Person person, int id) {
         person.setId(id);
         peopleRepository.save(person);
     }

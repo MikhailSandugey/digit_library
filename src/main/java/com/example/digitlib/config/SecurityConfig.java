@@ -1,6 +1,6 @@
 package com.example.digitlib.config;
 
-import com.example.digitlib.service.AdminDetailsService;
+import com.example.digitlib.service.impl.AdminDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,17 +12,17 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final AdminDetailsService adminDetailsService;
+    private final AdminDetailsServiceImpl adminDetailsServiceImpl;
 
     @Autowired
-    public SecurityConfig(AdminDetailsService adminDetailsService) {
-        this.adminDetailsService = adminDetailsService;
+    public SecurityConfig(AdminDetailsServiceImpl adminDetailsServiceImpl) {
+        this.adminDetailsServiceImpl = adminDetailsServiceImpl;
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .userDetailsService(adminDetailsService)
+                .userDetailsService(adminDetailsServiceImpl)
                 .authorizeRequests()
                 .antMatchers("/auth", "/people", "/books")
                 .hasRole("ADMIN")

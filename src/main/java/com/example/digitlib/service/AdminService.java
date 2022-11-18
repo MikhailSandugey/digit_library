@@ -1,25 +1,18 @@
 package com.example.digitlib.service;
 
 import com.example.digitlib.model.Admin;
-import com.example.digitlib.repository.AdminsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-@Service
-@Transactional(readOnly = true)
-public class AdminService {
+/**
+ * Interface for AdminService entity
+ */
+public interface AdminService {
 
-    private final AdminsRepository adminsRepository;
-
-    @Autowired
-    public AdminService(AdminsRepository adminsRepository) {
-        this.adminsRepository = adminsRepository;
-    }
-
-    public Optional<Admin> getByUsername(String username) {
-        return adminsRepository.findByUsername(username);
-    }
+    /**
+     * Gets admin by username at a service layer
+     * @param username username of Admin
+     * @return Admin
+     */
+    Optional<Admin> getByUsername(String username);
 }

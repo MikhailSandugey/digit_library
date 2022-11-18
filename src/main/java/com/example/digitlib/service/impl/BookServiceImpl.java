@@ -1,8 +1,9 @@
-package com.example.digitlib.service;
+package com.example.digitlib.service.impl;
 
 import com.example.digitlib.model.Book;
 import com.example.digitlib.model.Person;
 import com.example.digitlib.repository.BooksRepository;
+import com.example.digitlib.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -15,12 +16,12 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class BooksService {
+public class BookServiceImpl implements BookService {
 
     private final BooksRepository booksRepository;
 
     @Autowired
-    public BooksService(BooksRepository booksRepository) {
+    public BookServiceImpl(BooksRepository booksRepository) {
         this.booksRepository = booksRepository;
     }
 
@@ -54,7 +55,7 @@ public class BooksService {
     }
 
     @Transactional
-    public void update(int id, Book book) {
+    public void update(Book book, int id) {
         Book bookToUpdate = booksRepository.findById(id).get();
         book.setId(id);
         book.setOwner(bookToUpdate.getOwner());
